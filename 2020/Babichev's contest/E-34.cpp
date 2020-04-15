@@ -5,7 +5,7 @@
 using T = long long;
 using namespace std;
 
-class point {          //Физическая точка с целочисленными координатами
+class point {          //Г”ГЁГ§ГЁГ·ГҐГ±ГЄГ Гї ГІГ®Г·ГЄГ  Г± Г¶ГҐГ«Г®Г·ГЁГ±Г«ГҐГ­Г­Г»Г¬ГЁ ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ Г¬ГЁ
 private:
     T x;
     T y;
@@ -33,7 +33,7 @@ public:
         return !(*this == p);
     }
 
-    bool operator<(const point& p) const {                   //Сравниваем по x, если равны - то по y, если равны - то по z
+    bool operator<(const point& p) const {                   //Г‘Г°Г ГўГ­ГЁГўГ ГҐГ¬ ГЇГ® x, ГҐГ±Г«ГЁ Г°Г ГўГ­Г» - ГІГ® ГЇГ® y, ГҐГ±Г«ГЁ Г°Г ГўГ­Г» - ГІГ® ГЇГ® z
         if (this->x == p.getX()) {
             if (this->y == p.getY()) {
                 if (this->z < p.getZ()) return 1;
@@ -58,6 +58,7 @@ public:
         else if (this->x > p.getX()) return 1;
         else return 0;
     }
+    
     point operator+(const point& p) const {
         point q = point();
         q.x = (this->x + p.getX());
@@ -69,10 +70,10 @@ public:
 
 int main() {
     multiset<point> points;
-    int n;                        //Количество элементов
+    int n;                        //ГЉГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГЅГ«ГҐГ¬ГҐГ­ГІГ®Гў
     cin >> n;
     T x, y, z;
-    for (int i = 0; i < n; i++) {         //Кладём точки в мультисет
+    for (int i = 0; i < n; i++) {         //ГЉГ«Г Г¤ВёГ¬ ГІГ®Г·ГЄГЁ Гў Г¬ГіГ«ГјГІГЁГ±ГҐГІ
         cin >> x >> y >> z;
         points.insert(point(x, y, z));
     }
@@ -81,7 +82,7 @@ int main() {
     front = points.begin();
     back = points.rbegin();
     point center = *front + *back;
-    int m = n - (n % 2);            //Наибольшее чётное количество элементов
+    int m = n - (n % 2);            //ГЌГ ГЁГЎГ®Г«ГјГёГҐГҐ Г·ВёГІГ­Г®ГҐ ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГЅГ«ГҐГ¬ГҐГ­ГІГ®Гў
     bool alarm = 0;
     for (int i = 0; i < (m / 2); i++) {
         if ((*front + *back) != center) alarm = 1;
