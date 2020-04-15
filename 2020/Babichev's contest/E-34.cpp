@@ -5,7 +5,7 @@
 using T = long long;
 using namespace std;
 
-class point {          //Ôèçè÷åñêàÿ òî÷êà ñ öåëî÷èñëåííûìè êîîðäèíàòàìè
+class point {          //Физическая точка с целочисленными координатами
 private:
     T x;
     T y;
@@ -33,7 +33,7 @@ public:
         return !(*this == p);
     }
 
-    bool operator<(const point& p) const {                   //Ñðàâíèâàåì ïî x, åñëè ðàâíû - òî ïî y, åñëè ðàâíû - òî ïî z
+    bool operator<(const point& p) const {                   //Сравниваем по x, если равны - то по y, если равны - то по z
         if (this->x == p.getX()) {
             if (this->y == p.getY()) {
                 if (this->z < p.getZ()) return 1;
@@ -58,7 +58,6 @@ public:
         else if (this->x > p.getX()) return 1;
         else return 0;
     }
-    
     point operator+(const point& p) const {
         point q = point();
         q.x = (this->x + p.getX());
@@ -66,14 +65,22 @@ public:
         q.z = (this->z + p.getZ());
         return q;
     }
+
+    point operator*(const int& a) const {
+        point q = point();
+        q.x = this->x * a;
+        q.y = this->y * a;
+        q.z = this->z * a;
+        return q;
+    }
 };
 
 int main() {
     multiset<point> points;
-    int n;                        //Êîëè÷åñòâî ýëåìåíòîâ
+    int n;                        //Количество элементов
     cin >> n;
     T x, y, z;
-    for (int i = 0; i < n; i++) {         //Êëàä¸ì òî÷êè â ìóëüòèñåò
+    for (int i = 0; i < n; i++) {         //Кладём точки в мультисет
         cin >> x >> y >> z;
         points.insert(point(x, y, z));
     }
@@ -82,7 +89,7 @@ int main() {
     front = points.begin();
     back = points.rbegin();
     point center = *front + *back;
-    int m = n - (n % 2);            //Íàèáîëüøåå ÷¸òíîå êîëè÷åñòâî ýëåìåíòîâ
+    int m = n - (n % 2);            //Наибольшее чётное количество элементов
     bool alarm = 0;
     for (int i = 0; i < (m / 2); i++) {
         if ((*front + *back) != center) alarm = 1;
@@ -91,7 +98,7 @@ int main() {
         if (alarm) break;
     }
     if (n != m) {
-        if (*front != center) alarm = 1;
+        if (*front * 2 != center) alarm = 1;
     }
     cout << (alarm ? "No" : "Yes");
 }
