@@ -9,21 +9,20 @@ def num(m):                                   #Рекурсивная функц
             if squares[i] > m: continue                  #Не трогаем большие
             else:
                 square = squares[i]
-                it = num(square) + num(m - square)
+                it = 1 + num(m - square)
                 if it < min_it: min_it = it
         shortcuts[m] = min_it
         return min_it
 
 n = int(input())
 squares = []
+shortcuts = {i : 0 for i in range(n + 1)}
 k = 1
 while k*k <= n:
     squares.append(k*k)
+    shortcuts[k*k] = 1
     k += 1                                 #Создали массив квадратов
 #print(squares)
-shortcuts = {i : 0 for i in range(n + 1)}
-for i in squares:
-    shortcuts[i] = 1                        #Чтобы составить квадрат нужен один квадрат
 print(num(n))
 #print(shortcuts)
 
