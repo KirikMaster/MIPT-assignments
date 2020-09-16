@@ -5,9 +5,9 @@ class Car:
         self.number = number
 
     def __eq__(self, other):
-        try:
+        if isinstance(other, Car):
             return (self.number == other.number)
-        except: return False
+        return False
     
     def __hash__(self):
         return hash((self.number))
