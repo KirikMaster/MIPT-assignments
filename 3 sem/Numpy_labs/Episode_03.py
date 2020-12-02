@@ -8,10 +8,11 @@ Lines = [float(i) for i in url.text.split('\n')]
 u0 = np.array(Lines)
 N = len(u0)
 
-A = np.diag(np.ones(N)) + np.diag(np.ones(N-1) * (-1), k = - 1)
-
+A = np.diag(np.ones(N)) + np.diag(np.ones(N-1) * (-1), k = - 1) + np.diag(np.ones(1) * (-1), k = N-1)
 fig = plt.figure()
 ax = plt.axes(xlim=(0, 50), ylim=(0, 10))
+ax.set_title("Динамический график рекурсивной функции u(x)")
+plt.grid(True)
 line, = ax.plot([], [], lw=3)
 x = np.linspace(1,N)
 
