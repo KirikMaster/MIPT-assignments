@@ -22,9 +22,7 @@ for i in range(N):
 
         for j in range(len(data),-1,-1):
             chunk = data_improved[j:j+10]
-            print(len(chunk))
             divider = np.arange(1,len(chunk) + 1)
-            print(len(divider))
             data_improved[j:j+10] = np.cumsum(chunk)/divider
 
         #Вариант работы фильтра №2
