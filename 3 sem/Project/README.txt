@@ -16,4 +16,5 @@ Testfield.py - a draft for experiments and better understanding of CV
 ==================
 
 A neuronet model and training data are too heavy to be uploaded to gitHub,
-so they can be found at the link: 
+so they can be found at the link:
+https://drive.google.com/drive/folders/1fyPmMmsVju0N8yKixH0k0_pvEicDw1Ds?usp=sharing
