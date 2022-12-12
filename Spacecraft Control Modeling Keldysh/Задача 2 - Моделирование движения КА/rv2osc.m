@@ -1,0 +1,26 @@
+function [z] = rv2osc(rv, params)
+% z = e, a, Om, v, i, w
+% № = 1, 2, 3,  4, 5, 6
+z = zeros(6, 1);
+rvect = rv(1:3);
+vvect = rv(4:6);
+r = norm(rvect);
+v = norm(vvect);
+h = h_integral(rv, params);
+c = c_integral(rv, params);
+f = f_integral(rv, params);
+p = norm(c)^2 / params.mu;
+z(1) = norm(f)/params.mu;                             % 1
+z(2) = p / (1 - z(1)^2);                              % 2
+n = c / norm(c);
+Ox = [1, 0, 0];
+Oy = [0, 1, 0];
+Oz = [0, 0, 1];
+z(5) = acos(dot(n, Oz));                              % 5
+l = cross(Oz, n) / norm(cross(Oz, n));
+g = cross(n, l);
+q = cross(n, f / norm(f));
+z(3) = atan2(dot(l, Oy), dot(l, Ox));                 % 3
+z(4) = atan2(dot(f, g), dot(f, l));                   % 4
+z(6) = atan2(dot(rvect, q), dot(rvect, f / norm(f))); % 6
+end
