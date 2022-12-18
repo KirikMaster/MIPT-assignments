@@ -21,6 +21,6 @@ l = cross(Oz, n) / norm(cross(Oz, n));
 g = cross(n, l);
 q = cross(n, f / norm(f));
 z(3) = atan2(dot(l, Oy), dot(l, Ox));                 % 3
-z(4) = atan2(dot(f, g), dot(f, l));                   % 4
-z(6) = atan2(dot(rvect, q), dot(rvect, f / norm(f))); % 6
+z(4) = atan2(dot(rvect, q), dot(rvect, f / norm(f))); % 4
+z(6) = atan2(dot(f, g), dot(f, l));                   % 6
 end

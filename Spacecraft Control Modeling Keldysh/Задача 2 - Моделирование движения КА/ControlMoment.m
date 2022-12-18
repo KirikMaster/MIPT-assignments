@@ -5,14 +5,14 @@ switch params.scenario
     case "Lagrange"
         switch instruction
             case 'Euler Angles'
-                A = EulerMatrix(x);
+                A = EulerMatrix(x(1), x(2), x(3)).';
                 g = A * params.g;
             case 'MoGC'
                 g = x * params.g;
             case 'Quat'
-                A = quat2dcm(x);
+                A = quat2dcm(x');
                 g = A * params.g;
         end
-        Mctrl = params.m * params.l * cross([0, 0, 1], g);
+        Mctrl = params.m * params.l * cross([0, 0, 1], g)';
 end
 end
