@@ -53,9 +53,6 @@ w1i = zeros(3, N);
 K1 = zeros(3, N);
 K1i = zeros(3, N);
 E1 = zeros(1, N);
-E1T = zeros(1, N);
-E1Ti = zeros(1, N);
-E1P = zeros(1, N);
 phi1 = zeros(1, N);
 costheta1 = zeros(1, N);
 theta1 = zeros(1, N);
@@ -70,20 +67,8 @@ for i = 1:N
     K1(:,i) = J * w1(:, i);
     K1i(:, i) = A(:,:,i).' * K1(:, i);
     E1(i) = dot(w1(:,i), J * w1(:, i))/2 + params.m * norm(params.g) * params.l * sin(theta1(i));
-    E1T(i) = dot(w1(:,i), J * w1(:, i))/2;
-    E1Ti(i) = dot(w1i(:,i), A(:,:,i).' * J * w1(:, i))/2;
-    E1P(i) = params.m * norm(params.g) * params.l * sin(theta1(i));
 end
 
-%close all
-figure
-hold on
-grid on
-plot(t, centralize(E1))
-plot(t, centralize(E1T), LineWidth=2.0)
-plot(t, centralize(E1Ti))
-plot(t, centralize(E1P))
-legend('E1', 'E1T', 'E1Ti', 'E1P')
 %% Euler angles
 A2 = zeros(3, 3, N);
 w2 = zeros(3,N);

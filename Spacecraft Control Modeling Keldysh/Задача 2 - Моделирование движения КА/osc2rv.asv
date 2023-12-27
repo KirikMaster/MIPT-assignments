@@ -1,0 +1,12 @@
+function [rv] = osc2rv(e, a, Om, v, i, w, params)
+% z = e, a, Om, v, i, w
+% № = 1, 2, 3,  4, 5, 6
+p = a * (1 - e^2);
+r = p / (1 + e * cos(v));
+rv = zeros(6, 1);
+r_OF = [r*cos(v), r*sin(v), 0];
+c = sqrt(params.mu * p);
+v_OF = c/p*e*sin(v) * [cos(v), sin(v), 0] + c/r * [-sin(v), cos(v), 0];
+B = RotationMatrix(3, Om) * RotationMatrix(1, i) * RotationMatrix(3, w);
+rv = [B*r_OF, B*v_OF];
+end

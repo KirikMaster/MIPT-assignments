@@ -5,8 +5,8 @@ close all
 
 %%parameters
 A_ = 1.0;
-B_ = 1.0;
-C_ = 1.0;
+B_ = 3.3;
+C_ = 5.2;
 J = [A_, 0, 0;
      0, B_, 0;
      0, 0, C_];
@@ -88,16 +88,27 @@ end
 %%First integrals and other
 w2i = zeros(3, N);
 K2 = zeros(3, N);
+n = A2(:,:,1).' * J * w2(:, 1);
+zk = n/norm(n);
+yk = cross(zk, Oz)/norm(cross(zk, Oz));
+xk = cross(yk, zk);
+Ak = [dot(xk, Ox), dot(yk, Ox), dot(zk, Ox);
+      dot(xk, Oy), dot(yk, Oy), dot(zk, Oy);
+      dot(xk, Oz), dot(yk, Oz), dot(zk, Oz)];
 Knorm2 = zeros(1, N);
 E2 = zeros(1, N);
 phi2 = zeros(1, N);
 x2 = repmat(xl, 1, N);
-angles_dot = zeros(3, N);
+angles = zeros(3, N);
+%angles_dot = zeros(3, N);
 temp2 = zeros(6, 1);
 for i = 1:N
-    temp2 = EulerAngles(Y2(:, i), t(i), params);
-    angles_dot(:, i) = temp2(1:3)';
-
+    [psik, thetak, phik] = dcm2angle(Ak.' * A2(:,:,i).', "ZXZ");
+    angles(1, i) = psik;
+    angles(2, i) = thetak;
+    angles(3, i) = phik;
+    %temp2 = EulerAngles(Y2(:, i), t(i), params);
+    %angles_dot(:, i) = temp2(1:3)';
     w2i(:,i) = A2(:,:,i).' * w2(:, i);
     x2(:,i) = A2(:,:,i).' * x2(:,i);
     phi2(i) = atan2(-dot(x2(:,i), Oy), -dot(x2(:,i), Ox)) + pi;
@@ -268,7 +279,8 @@ if A_ == B_
     title('Check of results for axis-symmetric body')
     xlabel('time, seconds')
     ylabel('angular velocity, s^-1')
-    plot(t, angles_dot)
-    plot(t, theta)
+    plot(t, angles(1, :), LineWidth=3.0)
+    plot(t, angles(2, :), LineWidth=1.5)
+    plot(t, angles(3, :))
     legend('psi', 'theta', 'phi')
 end

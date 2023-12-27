@@ -5,7 +5,7 @@ switch params.scenario
     case "Lagrange"
         switch instruction
             case 'Euler Angles'
-                A = EulerMatrix(x(1), x(2), x(3)).';
+                A = EulerMatrix(x(1), x(2), x(3))';
                 g = A * params.g;
             case 'MoGC'
                 g = x * params.g;
